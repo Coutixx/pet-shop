@@ -30,7 +30,7 @@ Cada módulo deve funcionar isoladamente com seus próprios dados de exemplo. Ne
 - [ ] **[Henrique]** Definir contratos TypeScript compartilhados (`ClienteResumo`, `ProdutoResumo`, `PedidoRascunho`) sem implementar telas de terceiros.
 - [ ] **[Julia]** Criar estrutura visual Bootstrap, navegação e layout-base do dashboard.
 - [ ] **[Nycollas]** Criar wireframe e tela estática do caixa/checkout com dados simulados.
-- [ ] **[Enzo]** Criar `develop`, modelo de Pull Request, padrão de branches e convenção de commits.
+- [x] **[Enzo]** Criar `develop`, modelo de Pull Request, padrão de branches e convenção de commits.
 - [ ] **[Enzo]** Criar modelo visual de recibo e histórico usando dados simulados.
 
 ### Fase 2 - Módulo do Henrique: backend, banco e clientes
@@ -97,18 +97,19 @@ Cada módulo deve funcionar isoladamente com seus próprios dados de exemplo. Ne
 
 ## Convenções Git
 
-- [ ] **[Todos]** Trabalhar em uma branch `feature/<nome>-<modulo>` por tarefa.
-- [ ] **[Todos]** Fazer ao menos um commit próprio por checkbox concluído.
-- [ ] **[Todos]** Abrir Pull Request para `develop`; não fazer commit direto em `main` ou `develop`.
+- **Branches:** criar uma branch `feature/<nome>-<modulo>` por tarefa, sempre baseada em `develop`. Use o nome do integrante e o módulo em minúsculas, separados por hífen (por exemplo, `feature/enzo-recibo-historico`).
+- **Commits:** fazer ao menos um commit próprio por checkbox concluído e usar `tipo(escopo): descrição` em português, com tipos como `feat`, `fix`, `docs`, `style`, `refactor`, `test` e `chore`.
+- **Pull Requests:** abrir PR da branch de tarefa para `develop`; não fazer commit direto em `main` ou `develop`. Use o [modelo de Pull Request](.github/PULL_REQUEST_TEMPLATE.md) e solicite revisão de pelo menos uma pessoa antes do merge.
 - [ ] **[Enzo]** Garantir que cada PR tenha revisão de pelo menos uma pessoa.
 
 Exemplos:
 
 ```text
+feat(enzo-recibo): cria modelo visual de recibo
+docs(enzo-git): documenta fluxo de branches e commits
 feat(henrique-clientes): adiciona consulta ViaCEP
 feat(julia-produtos): cria regra de produto indisponivel
 feat(nycollas-checkout): calcula frete do pedido
-feat(enzo-recibo): exibe recibo da venda
 ```
 
 ## Critério de pronto para qualquer checkbox
