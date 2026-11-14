@@ -31,7 +31,7 @@ Cada módulo deve funcionar isoladamente com seus próprios dados de exemplo. Ne
 - [ ] **[Julia]** Criar estrutura visual Bootstrap, navegação e layout-base do dashboard.
 - [ ] **[Nycollas]** Criar wireframe e tela estática do caixa/checkout com dados simulados.
 - [x] **[Enzo]** Criar `develop`, modelo de Pull Request, padrão de branches e convenção de commits.
-- [ ] **[Enzo]** Criar modelo visual de recibo e histórico usando dados simulados.
+- [x] **[Enzo]** Criar [modelo visual de recibo e histórico](prototipos/enzo/index.html) usando dados simulados.
 
 ### Fase 2 - Módulo do Henrique: backend, banco e clientes
 

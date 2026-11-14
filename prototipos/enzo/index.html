@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Protótipo visual de histórico de vendas e recibos do PetShop Cotil."
+    />
+    <title>Histórico de vendas | PetShop Cotil</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="PetShop Cotil, início">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        <span>PetShop <strong>Cotil</strong></span>
+      </a>
+      <span class="prototype-tag">Protótipo · dados simulados</span>
+    </header>
+
+    <main class="page">
+      <section class="page-heading" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">VENDAS</p>
+          <h1 id="page-title">Histórico de vendas</h1>
+          <p class="subtitle">Consulte as vendas e visualize o recibo de cada pedido.</p>
+        </div>
+        <button class="date-filter" type="button" disabled>
+          <span aria-hidden="true">▦</span>
+          Últimas vendas
+        </button>
+      </section>
+
+      <section class="summary-grid" aria-label="Resumo das vendas simuladas">
+        <article class="summary-card">
+          <span class="summary-icon lavender" aria-hidden="true">▤</span>
+          <div>
+            <p>Vendas simuladas</p>
+            <strong>3</strong>
+          </div>
+        </article>
+        <article class="summary-card">
+          <span class="summary-icon mint" aria-hidden="true">R$</span>
+          <div>
+            <p>Total simulado</p>
+            <strong>R$ 422,30</strong>
+          </div>
+        </article>
+        <article class="summary-card">
+          <span class="summary-icon peach" aria-hidden="true">↗</span>
+          <div>
+            <p>Ticket médio</p>
+            <strong>R$ 140,77</strong>
+          </div>
+        </article>
+      </section>
+
+      <section class="sales-section" aria-labelledby="sales-title">
+        <div class="section-heading">
+          <div>
+            <h2 id="sales-title">Vendas recentes</h2>
+            <p>Selecione uma venda para abrir o recibo.</p>
+          </div>
+          <span class="result-count">3 vendas</span>
+        </div>
+
+        <div class="sales-list">
+          <details class="sale-card" open>
+            <summary>
+              <span class="sale-avatar avatar-lavender" aria-hidden="true">#42</span>
+              <span class="sale-main">
+                <strong>Venda #00042</strong>
+                <span>14 nov 2026 · 15:42</span>
+              </span>
+              <span class="sale-customer">Mariana Oliveira</span>
+              <span class="sale-total">R$ 128,00</span>
+              <span class="status">Confirmada</span>
+              <span class="chevron" aria-hidden="true">⌄</span>
+            </summary>
+            <div class="receipt-wrap">
+              <article class="receipt" aria-label="Recibo simulado da venda 00042">
+                <div class="receipt-heading">
+                  <span class="receipt-logo" aria-hidden="true">P</span>
+                  <div>
+                    <strong>PetShop Cotil</strong>
+                    <span>RECIBO DE VENDA</span>
+                  </div>
+                  <span class="receipt-number">#00042</span>
+                </div>
+                <div class="receipt-meta">
+                  <p><span>Data</span><strong>14/11/2026 às 15:42</strong></p>
+                  <p><span>Cliente</span><strong>Mariana Oliveira</strong></p>
+                  <p><span>Pagamento</span><strong>Pix</strong></p>
+                </div>
+                <div class="receipt-items" role="table" aria-label="Itens da venda 00042">
+                  <div class="item-row item-header" role="row">
+                    <span role="columnheader">Produto</span>
+                    <span role="columnheader">Qtd.</span>
+                    <span role="columnheader">Unitário</span>
+                    <span role="columnheader">Total</span>
+                  </div>
+                  <div class="item-row" role="row">
+                    <span role="cell">Ração premium para cães</span>
+                    <span role="cell">1</span>
+                    <span role="cell">R$ 89,90</span>
+                    <strong role="cell">R$ 89,90</strong>
+                  </div>
+                  <div class="item-row" role="row">
+                    <span role="cell">Petisco natural</span>
+                    <span role="cell">2</span>
+                    <span role="cell">R$ 19,05</span>
+                    <strong role="cell">R$ 38,10</strong>
+                  </div>
+                </div>
+                <div class="receipt-total">
+                  <p><span>Subtotal</span><span>R$ 128,00</span></p>
+                  <p><span>Frete</span><span>R$ 0,00</span></p>
+                  <p class="grand-total"><strong>Total pago</strong><strong>R$ 128,00</strong></p>
+                </div>
+                <p class="receipt-footer">Obrigado pela preferência. Volte sempre! 🐾</p>
+              </article>
+            </div>
+          </details>
+
+          <details class="sale-card">
+            <summary>
+              <span class="sale-avatar avatar-mint" aria-hidden="true">#41</span>
+              <span class="sale-main">
+                <strong>Venda #00041</strong>
+                <span>14 nov 2026 · 13:15</span>
+              </span>
+              <span class="sale-customer">Rafael Santos</span>
+              <span class="sale-total">R$ 74,50</span>
+              <span class="status">Confirmada</span>
+              <span class="chevron" aria-hidden="true">⌄</span>
+            </summary>
+            <div class="receipt-wrap">
+              <article class="receipt" aria-label="Recibo simulado da venda 00041">
+                <div class="receipt-heading">
+                  <span class="receipt-logo" aria-hidden="true">P</span>
+                  <div>
+                    <strong>PetShop Cotil</strong>
+                    <span>RECIBO DE VENDA</span>
+                  </div>
+                  <span class="receipt-number">#00041</span>
+                </div>
+                <div class="receipt-meta">
+                  <p><span>Data</span><strong>14/11/2026 às 13:15</strong></p>
+                  <p><span>Cliente</span><strong>Rafael Santos</strong></p>
+                  <p><span>Pagamento</span><strong>Cartão de crédito ···· 4821</strong></p>
+                </div>
+                <div class="receipt-items" role="table" aria-label="Itens da venda 00041">
+                  <div class="item-row item-header" role="row">
+                    <span role="columnheader">Produto</span>
+                    <span role="columnheader">Qtd.</span>
+                    <span role="columnheader">Unitário</span>
+                    <span role="columnheader">Total</span>
+                  </div>
+                  <div class="item-row" role="row">
+                    <span role="cell">Shampoo neutro</span>
+                    <span role="cell">1</span>
+                    <span role="cell">R$ 32,50</span>
+                    <strong role="cell">R$ 32,50</strong>
+                  </div>
+                  <div class="item-row" role="row">
+                    <span role="cell">Coleira ajustável</span>
+                    <span role="cell">1</span>
+                    <span role="cell">R$ 42,00</span>
+                    <strong role="cell">R$ 42,00</strong>
+                  </div>
+                </div>
+                <div class="receipt-total">
+                  <p><span>Subtotal</span><span>R$ 74,50</span></p>
+                  <p><span>Frete</span><span>R$ 0,00</span></p>
+                  <p class="grand-total"><strong>Total pago</strong><strong>R$ 74,50</strong></p>
+                </div>
+                <p class="receipt-footer">Obrigado pela preferência. Volte sempre! 🐾</p>
+              </article>
+            </div>
+          </details>
+
+          <details class="sale-card">
+            <summary>
+              <span class="sale-avatar avatar-peach" aria-hidden="true">#40</span>
+              <span class="sale-main">
+                <strong>Venda #00040</strong>
+                <span>13 nov 2026 · 18:07</span>
+              </span>
+              <span class="sale-customer">Camila Ferreira</span>
+              <span class="sale-total">R$ 219,80</span>
+              <span class="status">Confirmada</span>
+              <span class="chevron" aria-hidden="true">⌄</span>
+            </summary>
+            <div class="receipt-wrap">
+              <article class="receipt" aria-label="Recibo simulado da venda 00040">
+                <div class="receipt-heading">
+                  <span class="receipt-logo" aria-hidden="true">P</span>
+                  <div>
+                    <strong>PetShop Cotil</strong>
+                    <span>RECIBO DE VENDA</span>
+                  </div>
+                  <span class="receipt-number">#00040</span>
+                </div>
+                <div class="receipt-meta">
+                  <p><span>Data</span><strong>13/11/2026 às 18:07</strong></p>
+                  <p><span>Cliente</span><strong>Camila Ferreira</strong></p>
+                  <p><span>Pagamento</span><strong>Dinheiro</strong></p>
+                </div>
+                <div class="receipt-items" role="table" aria-label="Itens da venda 00040">
+                  <div class="item-row item-header" role="row">
+                    <span role="columnheader">Produto</span>
+                    <span role="columnheader">Qtd.</span>
+                    <span role="columnheader">Unitário</span>
+                    <span role="columnheader">Total</span>
+                  </div>
+                  <div class="item-row" role="row">
+                    <span role="cell">Ração premium para gatos</span>
+                    <span role="cell">1</span>
+                    <span role="cell">R$ 149,90</span>
+                    <strong role="cell">R$ 149,90</strong>
+                  </div>
+                  <div class="item-row" role="row">
+                    <span role="cell">Brinquedo com catnip</span>
+                    <span role="cell">2</span>
+                    <span role="cell">R$ 34,95</span>
+                    <strong role="cell">R$ 69,90</strong>
+                  </div>
+                </div>
+                <div class="receipt-total">
+                  <p><span>Subtotal</span><span>R$ 219,80</span></p>
+                  <p><span>Frete</span><span>R$ 0,00</span></p>
+                  <p class="grand-total"><strong>Total pago</strong><strong>R$ 219,80</strong></p>
+                </div>
+                <p class="receipt-footer">Obrigado pela preferência. Volte sempre! 🐾</p>
+              </article>
+            </div>
+          </details>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
