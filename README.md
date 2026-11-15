@@ -4,19 +4,45 @@ Aplicativo desktop para gerenciamento de um PetShop, desenvolvido para a discipl
 
 ## Tecnologias e arquitetura
 
-Electron, TypeScript, SQLite e Bootstrap. A aplicação seguirá este fluxo:
+Electron, TypeScript, PostgreSQL em Docker e Bootstrap. A aplicação seguirá este fluxo:
 
 ```text
-Interface (renderer) -> preload tipado -> IPC (main) -> service/repository -> SQLite
+Interface (renderer) -> preload tipado -> IPC (main) -> service/repository -> PostgreSQL
 ```
 
-Cada módulo deve funcionar isoladamente com seus próprios dados de exemplo. Nenhuma pessoa deve aguardar o módulo de outra para começar: a ligação entre módulos ocorrerá somente na fase de integração.
+O PostgreSQL será executado localmente via Docker Compose durante o desenvolvimento. Cada módulo deve funcionar isoladamente com seus próprios dados de exemplo. Nenhuma pessoa deve aguardar o módulo de outra para começar: a ligação entre módulos ocorrerá somente na fase de integração.
+
+## Estrutura inicial
+
+```text
+database/
+	migrations/
+	seeds/
+src/
+	main/
+		database/
+		ipc/
+		modules/
+			usuarios/
+			clientes/
+			viacep/
+	preload/
+	renderer/
+		src/
+	shared/
+		contracts/
+tests/
+	integration/
+	unit/
+```
+
+O processo `main` concentra acesso ao banco, regras de negócio e handlers IPC. O `preload` expõe somente operações tipadas ao `renderer`; credenciais ficam em variáveis de ambiente e não devem ser incluídas no Git.
 
 ## Divisão da equipe
 
 | Integrante | Módulo independente | Entrega na integração |
 | --- | --- | --- |
-| Henrique | Backend, banco, usuários, clientes e ViaCEP | Persistência SQLite, IPC e segurança para todos os módulos |
+| Henrique | Backend, banco, usuários, clientes e ViaCEP | Persistência PostgreSQL via Docker, IPC e segurança para todos os módulos |
 | Julia | Produtos, estoque, dólar e dashboard | Catálogo e regra de disponibilidade ao pedido |
 | Nycollas | Entregadores, checkout, frete e distância | Pedido vinculado a cliente, produtos e entregador |
 | Enzo | Itens, recibo, histórico, e-mail e fluxo Git | Itens vinculados ao pedido e confirmação de venda |
@@ -28,6 +54,7 @@ Cada módulo deve funcionar isoladamente com seus próprios dados de exemplo. Ne
 - [ ] **[Henrique]** Criar a base Electron com TypeScript, `main`, `preload` e `renderer`.
 - [ ] **[Henrique]** Configurar scripts de desenvolvimento, build, lint, testes, CSP e `contextIsolation`.
 - [ ] **[Henrique]** Definir contratos TypeScript compartilhados (`ClienteResumo`, `ProdutoResumo`, `PedidoRascunho`) sem implementar telas de terceiros.
+- [ ] **[Henrique]** Configurar PostgreSQL de desenvolvimento via Docker Compose.
 - [ ] **[Julia]** Criar estrutura visual Bootstrap, navegação e layout-base do dashboard.
 - [ ] **[Nycollas]** Criar wireframe e tela estática do caixa/checkout com dados simulados.
 - [ ] **[Enzo]** Criar `develop`, modelo de Pull Request, padrão de branches e convenção de commits.
@@ -35,7 +62,7 @@ Cada módulo deve funcionar isoladamente com seus próprios dados de exemplo. Ne
 
 ### Fase 2 - Módulo do Henrique: backend, banco e clientes
 
-- [ ] **[Henrique]** Criar migrations SQLite para as seis tabelas exigidas.
+- [ ] **[Henrique]** Criar migrations PostgreSQL para as seis tabelas exigidas.
 - [ ] **[Henrique]** Criar diagrama do banco e documentar as chaves estrangeiras.
 - [ ] **[Henrique]** Implementar classes e repositórios de `Usuario` e `Cliente`.
 - [ ] **[Henrique]** Implementar login, logout, hash de senha e níveis de acesso.
@@ -77,7 +104,7 @@ Cada módulo deve funcionar isoladamente com seus próprios dados de exemplo. Ne
 
 ### Fase 6 - Integração planejada (somente quando os módulos isolados estiverem prontos)
 
-- [ ] **[Henrique]** Criar/adaptar repositórios SQLite para `Produto`, `Entregador`, `Pedido` e `ItemPedido` a partir dos contratos entregues.
+- [ ] **[Henrique]** Criar/adaptar repositórios PostgreSQL para `Produto`, `Entregador`, `Pedido` e `ItemPedido` a partir dos contratos entregues.
 - [ ] **[Julia]** Substituir os dados de exemplo de produtos pela API IPC fornecida por Henrique.
 - [ ] **[Nycollas]** Substituir os dados simulados de cliente, produto e entregador pelas APIs IPC; conectar o checkout ao pedido real.
 - [ ] **[Enzo]** Conectar itens, recibo, histórico e e-mail ao pedido confirmado.
