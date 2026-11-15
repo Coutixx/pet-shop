@@ -4,13 +4,13 @@ Aplicativo desktop para gerenciamento de um PetShop, desenvolvido para a discipl
 
 ## Tecnologias e arquitetura
 
-Electron, TypeScript, PostgreSQL em Docker e Bootstrap. A aplicação seguirá este fluxo:
+Electron, TypeScript, MySQL da escola e Bootstrap. A aplicação seguirá este fluxo:
 
 ```text
-Interface (renderer) -> preload tipado -> IPC (main) -> service/repository -> PostgreSQL
+Interface (renderer) -> preload tipado -> IPC (main) -> service/repository -> MySQL
 ```
 
-O PostgreSQL será executado localmente via Docker Compose durante o desenvolvimento. Cada módulo deve funcionar isoladamente com seus próprios dados de exemplo. Nenhuma pessoa deve aguardar o módulo de outra para começar: a ligação entre módulos ocorrerá somente na fase de integração.
+O banco MySQL é mantido pelo servidor da escola, então não depende do Docker nem de um notebook ligado. Cada integrante deve usar suas próprias credenciais em um `.env` local; não compartilhe credenciais pessoais. Para um banco compartilhado pela equipe, solicite ao professor uma conta de projeto com permissões limitadas.
 
 ## Estrutura inicial
 
@@ -38,11 +38,25 @@ tests/
 
 O processo `main` concentra acesso ao banco, regras de negócio e handlers IPC. O `preload` expõe somente operações tipadas ao `renderer`; credenciais ficam em variáveis de ambiente e não devem ser incluídas no Git.
 
+## Configuração local
+
+Requisitos: Node.js 20 ou superior, npm e acesso à rede do servidor MySQL da escola. O acesso fora do laboratório pode depender da rede ou VPN da escola.
+
+```powershell
+Copy-Item .env.example .env # somente na primeira configuração; não sobrescreva um .env já preenchido
+npm install
+npm run dev
+```
+
+Edite o arquivo `.env` local e preencha `DB_NAME`, `DB_USER` e `DB_PASSWORD`. `DB_HOST` e `DB_PORT` já apontam para o servidor da escola. Na tela inicial, clique em **Testar conexão MySQL**. O teste valida o acesso ao servidor sem exibir ou salvar a senha na interface.
+
+O `.env` está ignorado pelo Git. Nunca o envie no chat, no repositório ou dentro do instalador. Cada integrante precisa usar suas próprias credenciais, a menos que o professor forneça uma conta específica para o projeto.
+
 ## Divisão da equipe
 
 | Integrante | Módulo independente | Entrega na integração |
 | --- | --- | --- |
-| Henrique | Backend, banco, usuários, clientes e ViaCEP | Persistência PostgreSQL via Docker, IPC e segurança para todos os módulos |
+| Henrique | Backend, banco, usuários, clientes e ViaCEP | Persistência MySQL, IPC e segurança para todos os módulos |
 | Julia | Produtos, estoque, dólar e dashboard | Catálogo e regra de disponibilidade ao pedido |
 | Nycollas | Entregadores, checkout, frete e distância | Pedido vinculado a cliente, produtos e entregador |
 | Enzo | Itens, recibo, histórico, e-mail e fluxo Git | Itens vinculados ao pedido e confirmação de venda |
@@ -51,10 +65,10 @@ O processo `main` concentra acesso ao banco, regras de negócio e handlers IPC. 
 
 ### Fase 1 - Preparação individual (todos podem começar ao mesmo tempo)
 
-- [ ] **[Henrique]** Criar a base Electron com TypeScript, `main`, `preload` e `renderer`.
-- [ ] **[Henrique]** Configurar scripts de desenvolvimento, build, lint, testes, CSP e `contextIsolation`.
-- [ ] **[Henrique]** Definir contratos TypeScript compartilhados (`ClienteResumo`, `ProdutoResumo`, `PedidoRascunho`) sem implementar telas de terceiros.
-- [ ] **[Henrique]** Configurar PostgreSQL de desenvolvimento via Docker Compose.
+- [x] **[Henrique]** Criar a base Electron com TypeScript, `main`, `preload` e `renderer`.
+- [x] **[Henrique]** Configurar scripts de desenvolvimento, build, lint, testes, CSP e `contextIsolation`.
+- [x] **[Henrique]** Definir contratos TypeScript compartilhados (`ClienteResumo`, `ProdutoResumo`, `PedidoRascunho`) sem implementar telas de terceiros.
+- [ ] **[Henrique]** Configurar credenciais MySQL locais e validar conexão com o servidor da escola.
 - [ ] **[Julia]** Criar estrutura visual Bootstrap, navegação e layout-base do dashboard.
 - [ ] **[Nycollas]** Criar wireframe e tela estática do caixa/checkout com dados simulados.
 - [ ] **[Enzo]** Criar `develop`, modelo de Pull Request, padrão de branches e convenção de commits.
@@ -62,7 +76,7 @@ O processo `main` concentra acesso ao banco, regras de negócio e handlers IPC. 
 
 ### Fase 2 - Módulo do Henrique: backend, banco e clientes
 
-- [ ] **[Henrique]** Criar migrations PostgreSQL para as seis tabelas exigidas.
+- [ ] **[Henrique]** Criar migrations MySQL para as seis tabelas exigidas.
 - [ ] **[Henrique]** Criar diagrama do banco e documentar as chaves estrangeiras.
 - [ ] **[Henrique]** Implementar classes e repositórios de `Usuario` e `Cliente`.
 - [ ] **[Henrique]** Implementar login, logout, hash de senha e níveis de acesso.
@@ -104,7 +118,7 @@ O processo `main` concentra acesso ao banco, regras de negócio e handlers IPC. 
 
 ### Fase 6 - Integração planejada (somente quando os módulos isolados estiverem prontos)
 
-- [ ] **[Henrique]** Criar/adaptar repositórios PostgreSQL para `Produto`, `Entregador`, `Pedido` e `ItemPedido` a partir dos contratos entregues.
+- [ ] **[Henrique]** Criar/adaptar repositórios MySQL para `Produto`, `Entregador`, `Pedido` e `ItemPedido` a partir dos contratos entregues.
 - [ ] **[Julia]** Substituir os dados de exemplo de produtos pela API IPC fornecida por Henrique.
 - [ ] **[Nycollas]** Substituir os dados simulados de cliente, produto e entregador pelas APIs IPC; conectar o checkout ao pedido real.
 - [ ] **[Enzo]** Conectar itens, recibo, histórico e e-mail ao pedido confirmado.
