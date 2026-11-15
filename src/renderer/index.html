@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f6f8" />
+    <title>PetShop Cotil</title>
+  </head>
+  <body class="bg-light">
+    <main class="container py-5">
+      <section class="bg-white border rounded-3 shadow-sm p-4 p-md-5">
+        <p class="text-uppercase text-secondary small fw-semibold mb-2">PetShop Cotil</p>
+        <h1 class="h3 mb-2">Base do aplicativo pronta</h1>
+        <p class="text-secondary mb-4">Electron, TypeScript e conexão MySQL pelo processo principal.</p>
+        <div class="d-flex flex-wrap align-items-center gap-3">
+          <button id="test-db" class="btn btn-primary" type="button">Testar conexão MySQL</button>
+          <span id="db-status" class="small text-secondary" role="status" aria-live="polite">Conexão ainda não testada.</span>
+        </div>
+        <div class="mt-3">
+          <span id="app-version" class="text-secondary small">Carregando versão...</span>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
