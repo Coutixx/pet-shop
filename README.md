@@ -68,7 +68,7 @@ O `.env` está ignorado pelo Git. Nunca o envie no chat, no repositório ou dent
 - [x] **[Henrique]** Criar a base Electron com TypeScript, `main`, `preload` e `renderer`.
 - [x] **[Henrique]** Configurar scripts de desenvolvimento, build, lint, testes, CSP e `contextIsolation`.
 - [x] **[Henrique]** Definir contratos TypeScript compartilhados (`ClienteResumo`, `ProdutoResumo`, `PedidoRascunho`) sem implementar telas de terceiros.
-- [ ] **[Henrique]** Configurar credenciais MySQL locais e validar conexão com o servidor da escola.
+- [x] **[Henrique]** Configurar credenciais MySQL locais e validar conexão com o servidor da escola.
 - [ ] **[Julia]** Criar estrutura visual Bootstrap, navegação e layout-base do dashboard.
 - [ ] **[Nycollas]** Criar wireframe e tela estática do caixa/checkout com dados simulados.
 - [ ] **[Enzo]** Criar `develop`, modelo de Pull Request, padrão de branches e convenção de commits.
