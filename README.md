@@ -57,7 +57,7 @@ O processo `main` concentra acesso ao banco, regras de negócio e handlers IPC. 
 - [ ] **[Henrique]** Configurar PostgreSQL de desenvolvimento via Docker Compose.
 - [ ] **[Julia]** Criar estrutura visual Bootstrap, navegação e layout-base do dashboard.
 - [ ] **[Nycollas]** Criar wireframe e tela estática do caixa/checkout com dados simulados.
-- [ ] **[Enzo]** Criar `develop`, modelo de Pull Request, padrão de branches e convenção de commits.
+- [ ] **[Enzo]** Criar `develop` branch padrão.
 - [ ] **[Enzo]** Criar modelo visual de recibo e histórico usando dados simulados.
 
 ### Fase 2 - Módulo do Henrique: backend, banco e clientes
