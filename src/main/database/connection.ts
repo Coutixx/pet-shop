@@ -1,4 +1,6 @@
-import { createConnection } from 'mysql2/promise'
+import { createConnection, createPool, type Pool } from 'mysql2/promise'
+
+let pool: Pool | undefined
 
 export function getMySqlConfig(env: NodeJS.ProcessEnv = process.env) {
   const host = env.DB_HOST?.trim()
@@ -26,4 +28,17 @@ export async function testMySqlConnection(env: NodeJS.ProcessEnv = process.env):
   } finally {
     await connection.end()
   }
+}
+
+export function getMySqlPool(): Pool {
+  if (!pool) {
+    pool = createPool({
+      ...getMySqlConfig(),
+      waitForConnections: true,
+      connectionLimit: 5,
+      queueLimit: 0
+    })
+  }
+
+  return pool
 }

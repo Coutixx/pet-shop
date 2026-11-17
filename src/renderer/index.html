@@ -7,19 +7,128 @@
     <title>PetShop Cotil</title>
   </head>
   <body class="bg-light">
-    <main class="container py-5">
-      <section class="bg-white border rounded-3 shadow-sm p-4 p-md-5">
-        <p class="text-uppercase text-secondary small fw-semibold mb-2">PetShop Cotil</p>
-        <h1 class="h3 mb-2">Base do aplicativo pronta</h1>
-        <p class="text-secondary mb-4">Electron, TypeScript e conexão MySQL pelo processo principal.</p>
-        <div class="d-flex flex-wrap align-items-center gap-3">
-          <button id="test-db" class="btn btn-primary" type="button">Testar conexão MySQL</button>
+    <main class="container py-4 py-lg-5">
+      <header class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-4">
+        <div>
+          <p class="text-uppercase text-secondary small fw-semibold mb-1">PetShop Cotil</p>
+          <h1 class="h4 mb-0">Gestão da loja</h1>
+        </div>
+        <div id="session-actions" class="d-none align-items-center gap-3">
+          <span id="session-user" class="small text-secondary"></span>
+          <button id="logout" class="btn btn-outline-secondary btn-sm" type="button">Sair</button>
+        </div>
+      </header>
+
+      <p id="app-status" class="small mb-3" role="status" aria-live="polite"></p>
+
+      <section id="login-view" class="mx-auto" style="max-width: 440px">
+        <h2 class="h5 mb-1">Entrar</h2>
+        <p class="text-secondary mb-4">Use sua conta de acesso ao sistema.</p>
+        <form id="login-form" class="vstack gap-3">
+          <div>
+            <label for="login-email" class="form-label">E-mail</label>
+            <input id="login-email" name="email" class="form-control" type="email" autocomplete="username" required maxlength="254" />
+          </div>
+          <div>
+            <label for="login-password" class="form-label">Senha</label>
+            <input id="login-password" name="senha" class="form-control" type="password" autocomplete="current-password" required />
+          </div>
+          <button id="login-submit" class="btn btn-primary align-self-start" type="submit">Entrar</button>
+        </form>
+        <div class="d-flex flex-wrap align-items-center gap-3 border-top mt-4 pt-3">
+          <button id="test-db" class="btn btn-outline-secondary btn-sm" type="button">Testar conexão MySQL</button>
           <span id="db-status" class="small text-secondary" role="status" aria-live="polite">Conexão ainda não testada.</span>
         </div>
-        <div class="mt-3">
-          <span id="app-version" class="text-secondary small">Carregando versão...</span>
+      </section>
+
+      <section id="clients-view" class="d-none" aria-labelledby="clients-title">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+          <div>
+            <h2 id="clients-title" class="h5 mb-1">Clientes</h2>
+            <p class="text-secondary small mb-0">Cadastro e consulta de clientes.</p>
+          </div>
+          <button id="new-client" class="btn btn-primary" type="button">Novo cliente</button>
+        </div>
+
+        <form id="client-form" class="d-none border-top border-bottom py-4 mb-4">
+          <input id="client-id" name="id" type="hidden" />
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 id="client-form-title" class="h6 mb-0">Novo cliente</h3>
+            <button id="cancel-client" class="btn btn-outline-secondary btn-sm" type="button">Cancelar</button>
+          </div>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="client-name" class="form-label">Nome completo</label>
+              <input id="client-name" name="nome" class="form-control" required maxlength="120" />
+            </div>
+            <div class="col-md-6">
+              <label for="client-email" class="form-label">E-mail</label>
+              <input id="client-email" name="email" class="form-control" type="email" maxlength="254" />
+            </div>
+            <div class="col-md-4">
+              <label for="client-phone" class="form-label">Telefone</label>
+              <input id="client-phone" name="telefone" class="form-control" type="tel" required maxlength="20" />
+            </div>
+            <div class="col-md-4">
+              <label for="client-cpf" class="form-label">CPF</label>
+              <input id="client-cpf" name="cpf" class="form-control" inputmode="numeric" maxlength="14" />
+            </div>
+            <div class="col-md-4">
+              <label for="client-cep" class="form-label">CEP</label>
+              <div class="input-group">
+                <input id="client-cep" name="cep" class="form-control" inputmode="numeric" required maxlength="9" />
+                <button id="lookup-cep" class="btn btn-outline-secondary" type="button">Buscar</button>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="client-street" class="form-label">Logradouro</label>
+              <input id="client-street" name="logradouro" class="form-control" required maxlength="160" />
+            </div>
+            <div class="col-md-3">
+              <label for="client-number" class="form-label">Número</label>
+              <input id="client-number" name="numero" class="form-control" required maxlength="20" />
+            </div>
+            <div class="col-md-3">
+              <label for="client-complement" class="form-label">Complemento</label>
+              <input id="client-complement" name="complemento" class="form-control" maxlength="100" />
+            </div>
+            <div class="col-md-4">
+              <label for="client-neighborhood" class="form-label">Bairro</label>
+              <input id="client-neighborhood" name="bairro" class="form-control" required maxlength="100" />
+            </div>
+            <div class="col-md-5">
+              <label for="client-city" class="form-label">Cidade</label>
+              <input id="client-city" name="cidade" class="form-control" required maxlength="100" />
+            </div>
+            <div class="col-md-3">
+              <label for="client-state" class="form-label">UF</label>
+              <input id="client-state" name="uf" class="form-control text-uppercase" required minlength="2" maxlength="2" />
+            </div>
+          </div>
+          <div class="d-flex gap-2 mt-3">
+            <button id="save-client" class="btn btn-primary" type="submit">Salvar cliente</button>
+          </div>
+        </form>
+
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Contato</th>
+                <th scope="col">Cidade</th>
+                <th scope="col" class="text-end">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="clients-list"></tbody>
+          </table>
+          <p id="clients-empty" class="text-secondary small">Nenhum cliente cadastrado.</p>
         </div>
       </section>
+
+      <footer class="border-top mt-5 pt-3">
+        <span id="app-version" class="text-secondary small">Carregando versão...</span>
+      </footer>
     </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
