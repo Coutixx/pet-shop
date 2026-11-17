@@ -11,16 +11,24 @@ const {
 } = require("./item-pedido.js");
 
 test("preserva o preco unitario e a quantidade do item", () => {
-  const item = criarItemPedido({
+  const dadosVenda = {
     produtoId: "PROD-001",
     nomeProduto: "Racao premium",
     precoUnitario: 89.9,
     quantidade: 2,
-  });
+  };
+  const item = criarItemPedido(dadosVenda);
+
+  dadosVenda.precoUnitario = 99.9;
+  dadosVenda.quantidade = 5;
 
   assert.equal(item.precoUnitario, 89.9);
   assert.equal(item.quantidade, 2);
+  assert.equal(calcularSubtotalItem(item), 179.8);
   assert.ok(Object.isFrozen(item));
+  assert.throws(() => {
+    item.precoUnitario = 100;
+  }, TypeError);
 });
 
 test("calcula subtotal de um item", () => {
