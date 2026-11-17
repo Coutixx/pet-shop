@@ -1,11 +1,11 @@
 import { app, ipcMain } from 'electron'
 import type { ClienteInput, UsuarioAutenticado } from '../../shared/contracts'
 import { testMySqlConnection } from '../database/connection'
-import { exigirAdmin, exigirLogin, NaoAutorizadoError } from '../modules/usuarios/authorization'
-import { ClienteNaoEncontradoError, ClienteService, EntradaInvalidaError } from '../modules/clientes/cliente-service'
 import { MySqlClienteRepository } from '../modules/clientes/cliente-repository'
-import { CredenciaisInvalidasError, UsuarioService } from '../modules/usuarios/usuario-service'
+import { ClienteNaoEncontradoError, ClienteService, EntradaInvalidaError } from '../modules/clientes/cliente-service'
+import { exigirAdmin, exigirLogin, NaoAutorizadoError } from '../modules/usuarios/authorization'
 import { MySqlUsuarioRepository } from '../modules/usuarios/usuario-repository'
+import { CredenciaisInvalidasError, UsuarioService } from '../modules/usuarios/usuario-service'
 import { ViaCepError, ViaCepService } from '../modules/viacep/viacep-service'
 
 type SafeHandler = (event: Electron.IpcMainInvokeEvent, ...args: unknown[]) => unknown

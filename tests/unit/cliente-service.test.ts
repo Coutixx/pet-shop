@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
-import type { Cliente, ClienteInput } from '../../src/shared/contracts'
-import { ClienteNaoEncontradoError, ClienteService, EntradaInvalidaError } from '../../src/main/modules/clientes/cliente-service'
 import type { ClienteRepository } from '../../src/main/modules/clientes/cliente-repository'
+import { ClienteNaoEncontradoError, ClienteService, EntradaInvalidaError } from '../../src/main/modules/clientes/cliente-service'
+import type { Cliente, ClienteInput } from '../../src/shared/contracts'
 
 const clienteInput: ClienteInput = {
   nome: '  Ana Costa  ',

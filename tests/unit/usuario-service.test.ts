@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import type { UsuarioAutenticado } from '../../src/shared/contracts'
 import { exigirAdmin, exigirLogin, NaoAutorizadoError } from '../../src/main/modules/usuarios/authorization'
 import { hashPassword } from '../../src/main/modules/usuarios/password'
-import { CredenciaisInvalidasError, UsuarioService } from '../../src/main/modules/usuarios/usuario-service'
 import type { UsuarioCredencial, UsuarioRepository } from '../../src/main/modules/usuarios/usuario-repository'
+import { CredenciaisInvalidasError, UsuarioService } from '../../src/main/modules/usuarios/usuario-service'
+import type { UsuarioAutenticado } from '../../src/shared/contracts'
 
 describe('autenticação e níveis de acesso', () => {
   it('autentica por e-mail normalizado e não retorna o hash', async () => {

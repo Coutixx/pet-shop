@@ -1,6 +1,6 @@
 import 'dotenv/config'
-import { randomBytes, scryptSync } from 'node:crypto'
 import mysql from 'mysql2/promise'
+import { randomBytes, scryptSync } from 'node:crypto'
 
 const { DB_HOST, DB_NAME, DB_USER, DB_PASSWORD } = process.env
 const adminName = process.env.SEED_ADMIN_NAME?.trim()
