@@ -50,6 +50,10 @@ npm run dev
 
 Edite o arquivo `.env` local e preencha `DB_NAME`, `DB_USER` e `DB_PASSWORD`. `DB_HOST` e `DB_PORT` já apontam para o servidor da escola. Na tela inicial, clique em **Testar conexão MySQL**. O teste valida o acesso ao servidor sem exibir ou salvar a senha na interface.
 
+Antes do primeiro uso, execute `database/migrations/001-inicial.sql` no banco configurado, usando o MySQL Workbench ou outro cliente autorizado. Para criar um administrador e clientes demonstrativos, defina `SEED_ADMIN_NAME`, `SEED_ADMIN_EMAIL` e `SEED_ADMIN_PASSWORD` no `.env` (senha com pelo menos 12 caracteres) e execute `npm run db:seed`. O seed pode ser repetido; não redefine a senha de uma conta já existente.
+
+Depois, execute `npm run dev` e entre com o e-mail e a senha definidos no seed. Administradores podem excluir clientes; atendentes podem consultar, cadastrar e editar. A busca de endereço via CEP requer acesso à internet.
+
 O `.env` está ignorado pelo Git. Nunca o envie no chat, no repositório ou dentro do instalador. Cada integrante precisa usar suas próprias credenciais, a menos que o professor forneça uma conta específica para o projeto.
 
 ## Divisão da equipe
@@ -76,15 +80,15 @@ O `.env` está ignorado pelo Git. Nunca o envie no chat, no repositório ou dent
 
 ### Fase 2 - Módulo do Henrique: backend, banco e clientes
 
-- [ ] **[Henrique]** Criar migrations MySQL para as seis tabelas exigidas.
-- [ ] **[Henrique]** Criar diagrama do banco e documentar as chaves estrangeiras.
-- [ ] **[Henrique]** Implementar classes e repositórios de `Usuario` e `Cliente`.
-- [ ] **[Henrique]** Implementar login, logout, hash de senha e níveis de acesso.
-- [ ] **[Henrique]** Implementar CRUD de clientes com tela própria.
-- [ ] **[Henrique]** Integrar ViaCEP e tratar CEP inválido/falha de rede.
-- [ ] **[Henrique]** Expor APIs IPC tipadas somente para usuários e clientes.
-- [ ] **[Henrique]** Criar seed independente de usuários e clientes.
-- [ ] **[Henrique]** Testar autenticação, permissões, CRUD de clientes e validação de entrada.
+- [x] **[Henrique]** Criar migrations MySQL para as seis tabelas exigidas.
+- [x] **[Henrique]** Criar diagrama do banco e documentar as chaves estrangeiras.
+- [x] **[Henrique]** Implementar classes e repositórios de `Usuario` e `Cliente`.
+- [x] **[Henrique]** Implementar login, logout, hash de senha e níveis de acesso.
+- [x] **[Henrique]** Implementar CRUD de clientes com tela própria.
+- [x] **[Henrique]** Integrar ViaCEP e tratar CEP inválido/falha de rede.
+- [x] **[Henrique]** Expor APIs IPC tipadas somente para usuários e clientes.
+- [x] **[Henrique]** Criar seed independente de usuários e clientes.
+- [x] **[Henrique]** Testar autenticação, permissões, CRUD de clientes e validação de entrada.
 
 ### Fase 3 - Módulo da Julia: produtos e estoque
 
