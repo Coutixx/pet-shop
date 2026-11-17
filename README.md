@@ -108,7 +108,7 @@ O `.env` está ignorado pelo Git. Nunca o envie no chat, no repositório ou dent
 
 ### Fase 5 - Módulo do Enzo: itens, confirmação e histórico
 
-- [ ] **[Enzo]** Criar interface `ItemPedido` e funções de subtotal/total usando dados de exemplo.
+- [x] **[Enzo]** Criar interface `ItemPedido` e funções de subtotal/total usando dados de exemplo.
 - [ ] **[Enzo]** Garantir que o item preserve preço unitário e quantidade da venda.
 - [ ] **[Enzo]** Criar recibo visual com um pedido simulado.
 - [ ] **[Enzo]** Criar tela de histórico com pedidos simulados.
