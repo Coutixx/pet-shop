@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest run",
-    "db:seed": "node scripts/seed.mjs"
+    "db:seed": "node database/seeds/seed.mjs"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
