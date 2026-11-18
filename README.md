@@ -114,7 +114,7 @@ O `.env` está ignorado pelo Git. Nunca o envie no chat, no repositório ou dent
 
 - [x] **[Enzo]** Criar interface `ItemPedido` e funções de subtotal/total usando dados de exemplo.
 - [x] **[Enzo]** Garantir que o item preserve preço unitário e quantidade da venda.
-- [ ] **[Enzo]** Criar recibo visual com um pedido simulado.
+- [x] **[Enzo]** Criar recibo visual com um pedido simulado.
 - [ ] **[Enzo]** Criar tela de histórico com pedidos simulados.
 - [ ] **[Enzo]** Implementar serviço de e-mail com ambiente de teste ou mock, sem credenciais no código.
 - [ ] **[Enzo]** Tratar falha de envio de e-mail sem invalidar a venda.

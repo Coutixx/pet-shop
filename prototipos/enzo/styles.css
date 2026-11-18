@@ -336,6 +336,26 @@ h2 {
   letter-spacing: 0;
 }
 
+.receipt-print {
+  padding: 8px 11px;
+  border: 1px solid #dedaf7;
+  border-radius: 8px;
+  background: #f8f6ff;
+  color: #5e50bd;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.receipt-print:hover {
+  background: #eeebff;
+}
+
+.receipt-print:focus-visible {
+  outline: 3px solid #b8afff;
+  outline-offset: 2px;
+}
+
 .receipt-meta {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -507,5 +527,30 @@ h2 {
   *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .sale-card[open] .receipt,
+  .sale-card[open] .receipt * {
+    visibility: visible;
+  }
+
+  .sale-card[open] .receipt {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    border: 0;
+    background: #fff;
+  }
+
+  .receipt-print {
+    display: none;
   }
 }
