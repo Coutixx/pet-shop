@@ -116,7 +116,7 @@ O `.env` está ignorado pelo Git. Nunca o envie no chat, no repositório ou dent
 - [x] **[Enzo]** Garantir que o item preserve preço unitário e quantidade da venda.
 - [x] **[Enzo]** Criar recibo visual com um pedido simulado.
 - [x] **[Enzo]** Criar tela de histórico com pedidos simulados.
-- [ ] **[Enzo]** Implementar serviço de e-mail com ambiente de teste ou mock, sem credenciais no código.
+- [x] **[Enzo]** Implementar serviço de e-mail com ambiente de teste ou mock, sem credenciais no código.
 - [ ] **[Enzo]** Tratar falha de envio de e-mail sem invalidar a venda.
 - [ ] **[Enzo]** Revisar PRs e manter o padrão de branches/commits documentado.
 
