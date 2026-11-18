@@ -71,7 +71,7 @@
 
         <p class="empty-state" id="sales-empty" hidden>Nenhuma venda encontrada.</p>
         <div class="sales-list" id="sales-list">
-          <details class="sale-card" data-sale-id="00042" data-customer="Mariana Oliveira" data-total-cents="12800" open>
+          <details class="sale-card" data-sale-id="00042" data-customer="Mariana Oliveira" data-email="mariana.oliveira@example.test" data-total-cents="12800" open>
             <summary>
               <span class="sale-avatar avatar-lavender" aria-hidden="true">#42</span>
               <span class="sale-main">
@@ -92,10 +92,12 @@
                     <span>RECIBO DE VENDA</span>
                   </div>
                   <span class="receipt-number">#00042</span>
-                  <button class="receipt-print" type="button" data-print-receipt>
-                    Imprimir recibo
-                  </button>
+                  <div class="receipt-actions">
+                    <button class="receipt-send" type="button" data-send-receipt>Enviar por e-mail</button>
+                    <button class="receipt-print" type="button" data-print-receipt>Imprimir</button>
+                  </div>
                 </div>
+                <p class="email-status" data-email-status role="status" aria-live="polite" hidden></p>
                 <div class="receipt-meta">
                   <p><span>Data</span><strong>14/11/2026 às 15:42</strong></p>
                   <p><span>Cliente</span><strong>Mariana Oliveira</strong></p>
@@ -131,7 +133,7 @@
             </div>
           </details>
 
-          <details class="sale-card" data-sale-id="00041" data-customer="Rafael Santos" data-total-cents="7450">
+          <details class="sale-card" data-sale-id="00041" data-customer="Rafael Santos" data-email="rafael.santos@example.test" data-total-cents="7450">
             <summary>
               <span class="sale-avatar avatar-mint" aria-hidden="true">#41</span>
               <span class="sale-main">
@@ -152,10 +154,12 @@
                     <span>RECIBO DE VENDA</span>
                   </div>
                   <span class="receipt-number">#00041</span>
-                  <button class="receipt-print" type="button" data-print-receipt>
-                    Imprimir recibo
-                  </button>
+                  <div class="receipt-actions">
+                    <button class="receipt-send" type="button" data-send-receipt>Enviar por e-mail</button>
+                    <button class="receipt-print" type="button" data-print-receipt>Imprimir</button>
+                  </div>
                 </div>
+                <p class="email-status" data-email-status role="status" aria-live="polite" hidden></p>
                 <div class="receipt-meta">
                   <p><span>Data</span><strong>14/11/2026 às 13:15</strong></p>
                   <p><span>Cliente</span><strong>Rafael Santos</strong></p>
@@ -191,7 +195,7 @@
             </div>
           </details>
 
-          <details class="sale-card" data-sale-id="00040" data-customer="Camila Ferreira" data-total-cents="21980">
+          <details class="sale-card" data-sale-id="00040" data-customer="Camila Ferreira" data-email="camila.ferreira@example.test" data-total-cents="21980">
             <summary>
               <span class="sale-avatar avatar-peach" aria-hidden="true">#40</span>
               <span class="sale-main">
@@ -212,10 +216,12 @@
                     <span>RECIBO DE VENDA</span>
                   </div>
                   <span class="receipt-number">#00040</span>
-                  <button class="receipt-print" type="button" data-print-receipt>
-                    Imprimir recibo
-                  </button>
+                  <div class="receipt-actions">
+                    <button class="receipt-send" type="button" data-send-receipt>Enviar por e-mail</button>
+                    <button class="receipt-print" type="button" data-print-receipt>Imprimir</button>
+                  </div>
                 </div>
+                <p class="email-status" data-email-status role="status" aria-live="polite" hidden></p>
                 <div class="receipt-meta">
                   <p><span>Data</span><strong>13/11/2026 às 18:07</strong></p>
                   <p><span>Cliente</span><strong>Camila Ferreira</strong></p>
@@ -254,6 +260,7 @@
       </section>
     </main>
     <script src="./historico.js"></script>
+    <script src="./email-service.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>

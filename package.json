@@ -9,7 +9,7 @@
     "preview": "electron-vite preview",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "test": "vitest run",
+    "test": "vitest run && node --test prototipos/enzo/*.test.js",
     "db:seed": "node scripts/seed.mjs"
   },
   "dependencies": {

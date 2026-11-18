@@ -2,7 +2,7 @@
 
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { criarServicoEmail } = require("./email-service.js");
+const { criarServicoEmail, tentarEnviarReciboVenda } = require("./email-service.js");
 
 const reciboExemplo = {
   destinatario: "maria@example.test",
@@ -54,4 +54,24 @@ test("propaga falhas do transporte para o fluxo chamador", async () => {
   });
 
   await assert.rejects(servico.enviarRecibo(reciboExemplo), /Transporte indisponível/);
+});
+
+test("mantém a venda confirmada quando o envio do recibo falha", async () => {
+  const vendaConfirmada = Object.freeze({
+    id: "00042",
+    cliente: "Mariana Oliveira",
+    email: "maria@example.test",
+    totalCentavos: 12800,
+    status: "confirmada",
+  });
+  const estadoAntes = { ...vendaConfirmada };
+  const servico = criarServicoEmail(async () => {
+    throw new Error("Transporte indisponível.");
+  });
+
+  const resultado = await tentarEnviarReciboVenda(vendaConfirmada, servico);
+
+  assert.equal(resultado.enviado, false);
+  assert.match(resultado.erro.message, /Transporte indisponível/);
+  assert.deepEqual(vendaConfirmada, estadoAntes);
 });

@@ -60,7 +60,30 @@
     });
   }
 
-  const api = Object.freeze({ criarServicoEmail });
+  async function tentarEnviarReciboVenda(venda, servico) {
+    if (!venda || typeof venda !== "object") {
+      throw new TypeError("Os dados da venda são obrigatórios.");
+    }
+
+    if (!servico || typeof servico.enviarRecibo !== "function") {
+      throw new TypeError("O serviço de e-mail é inválido.");
+    }
+
+    try {
+      const resultado = await servico.enviarRecibo({
+        destinatario: venda.email,
+        vendaId: venda.id,
+        cliente: venda.cliente,
+        totalCentavos: venda.totalCentavos,
+      });
+      return Object.freeze({ enviado: true, resultado });
+    } catch (error) {
+      const erro = error instanceof Error ? error : new Error("Falha desconhecida no envio do recibo.");
+      return Object.freeze({ enviado: false, erro });
+    }
+  }
+
+  const api = Object.freeze({ criarServicoEmail, tentarEnviarReciboVenda });
   globalScope.PetShopEmail = api;
 
   if (typeof module !== "undefined" && module.exports) {

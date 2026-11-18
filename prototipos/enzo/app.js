@@ -2,6 +2,9 @@
 
 const historyApi = window.PetShopHistorico;
 if (!historyApi) throw new Error("O módulo de histórico não foi carregado.");
+const emailApi = window.PetShopEmail;
+if (!emailApi) throw new Error("O serviço de e-mail não foi carregado.");
+const emailService = emailApi.criarServicoEmail();
 
 const sales = Array.from(document.querySelectorAll(".sale-card")).map((card) => ({
   id: card.dataset.saleId,
@@ -66,4 +69,44 @@ document.addEventListener("click", (event) => {
 
   selectedSale.open = true;
   window.print();
+});
+
+document.addEventListener("click", async (event) => {
+  if (!(event.target instanceof Element)) return;
+
+  const sendButton = event.target.closest("[data-send-receipt]");
+  if (!(sendButton instanceof HTMLButtonElement)) return;
+
+  const selectedSale = sendButton.closest(".sale-card");
+  const status = selectedSale?.querySelector("[data-email-status]");
+  if (!(selectedSale instanceof HTMLDetailsElement) || !(status instanceof HTMLElement)) {
+    throw new Error("O pedido não possui os controles de envio do recibo.");
+  }
+
+  const venda = Object.freeze({
+    id: selectedSale.dataset.saleId,
+    cliente: selectedSale.dataset.customer,
+    email: selectedSale.dataset.email,
+    totalCentavos: Number(selectedSale.dataset.totalCents),
+    status: "confirmada",
+  });
+  sendButton.disabled = true;
+  status.hidden = false;
+  status.className = "email-status";
+  status.textContent = "Processando envio em modo de teste...";
+
+  try {
+    const resultado = await emailApi.tentarEnviarReciboVenda(venda, emailService);
+    if (resultado.enviado) {
+      status.classList.add("success");
+      status.textContent =
+        `Recibo da venda #${venda.id} processado em modo mock. Nenhum e-mail real foi enviado.`;
+    } else {
+      status.classList.add("error");
+      status.textContent =
+        `A venda #${venda.id} continua confirmada. O recibo não foi enviado: ${resultado.erro.message} Tente novamente.`;
+    }
+  } finally {
+    sendButton.disabled = false;
+  }
 });

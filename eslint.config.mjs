@@ -13,5 +13,13 @@ export default tseslint.config(
   {
     files: ['src/renderer/**/*.ts'],
     languageOptions: { globals: globals.browser }
+  },
+  {
+    files: ['prototipos/enzo/**/*.js'],
+    languageOptions: { globals: { ...globals.browser, ...globals.node } }
+  },
+  {
+    files: ['prototipos/enzo/**/*.test.js'],
+    rules: { '@typescript-eslint/no-require-imports': 'off' }
   }
 )
