@@ -15,11 +15,7 @@ export default tseslint.config(
     languageOptions: { globals: globals.browser }
   },
   {
-    files: ['prototipos/enzo/**/*.js'],
-    languageOptions: { globals: { ...globals.browser, ...globals.node } }
-  },
-  {
-    files: ['prototipos/enzo/**/*.test.js'],
-    rules: { '@typescript-eslint/no-require-imports': 'off' }
+    files: ['prototipos/enzo/**/*.ts'],
+    languageOptions: { globals: globals.browser }
   }
 )

@@ -5,11 +5,12 @@
   "main": "./out/main/index.js",
   "scripts": {
     "dev": "electron-vite dev",
+    "prototype": "vite prototipos/enzo",
     "build": "npm run typecheck && electron-vite build",
     "preview": "electron-vite preview",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "test": "vitest run && node --test prototipos/enzo/*.test.js",
+    "test": "vitest run",
     "db:seed": "node scripts/seed.mjs"
   },
   "dependencies": {

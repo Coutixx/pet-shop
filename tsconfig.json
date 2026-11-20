@@ -14,5 +14,11 @@
     "noEmit": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*.ts", "electron.vite.config.ts", "vitest.config.ts"]
+  "include": [
+    "src/**/*.ts",
+    "tests/**/*.ts",
+    "prototipos/enzo/**/*.ts",
+    "electron.vite.config.ts",
+    "vitest.config.ts"
+  ]
 }
