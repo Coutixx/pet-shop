@@ -13,5 +13,9 @@ export default tseslint.config(
   {
     files: ['src/renderer/**/*.ts'],
     languageOptions: { globals: globals.browser }
+  },
+  {
+    files: ['prototipos/enzo/**/*.ts'],
+    languageOptions: { globals: globals.browser }
   }
 )
