@@ -7,7 +7,7 @@ export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    files: ['src/main/**/*.ts', 'src/preload/**/*.ts', 'scripts/**/*.mjs', 'electron.vite.config.ts', 'vitest.config.ts'],
+    files: ['src/main/**/*.ts', 'src/preload/**/*.ts', 'database/seeds/**/*.mjs', 'electron.vite.config.ts', 'vitest.config.ts'],
     languageOptions: { globals: globals.node }
   },
   {

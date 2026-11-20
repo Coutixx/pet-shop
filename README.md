@@ -12,31 +12,22 @@ Interface (renderer) -> preload tipado -> IPC (main) -> service/repository -> My
 
 O banco MySQL é mantido pelo servidor da escola, então não depende do Docker nem de um notebook ligado. Cada integrante deve usar suas próprias credenciais em um `.env` local; não compartilhe credenciais pessoais. Para um banco compartilhado pela equipe, solicite ao professor uma conta de projeto com permissões limitadas.
 
-## Estrutura inicial
+## Arquitetura
 
-```text
-database/
-	migrations/
-	seeds/
-src/
-	main/
-		database/
-		ipc/
-		modules/
-			usuarios/
-			clientes/
-			viacep/
-	preload/
-	renderer/
-		src/
-	shared/
-		contracts/
-tests/
-	integration/
-	unit/
-```
+O código é separado por responsabilidades, organizando a aplicação em camadas:
 
-O processo `main` concentra acesso ao banco, regras de negócio e handlers IPC. O `preload` expõe somente operações tipadas ao `renderer`; credenciais ficam em variáveis de ambiente e não devem ser incluídas no Git.
+| **Camada** | **Responsabilidade** |
+| ------------------------- | ------------------------------------------------------------------------------- |
+| `Renderer` | Interface gráfica, telas, componentes e interação com o usuário |
+| `Preload` | Comunicação segura entre o Renderer e o processo principal, expondo APIs tipadas |
+| `Main` | Inicialização do Electron, gerenciamento de janelas e registro dos handlers IPC |
+| `Services` | Regras de negócio e execução dos casos de uso da aplicação |
+| `Repositories` | Acesso ao banco de dados MySQL e execução das operações de persistência |
+| `Database` | Configuração da conexão e estrutura de acesso ao banco de dados |
+
+A comunicação entre as camadas ocorre por meio de IPC (Inter-Process Communication). O Renderer solicita operações através das APIs disponibilizadas pelo Preload, que encaminha as chamadas ao processo principal do Electron.
+
+No processo principal, os handlers IPC acionam os Services, que executam as regras de negócio e utilizam os Repositories para acessar o banco de dados MySQL. Dessa forma, a interface não acessa diretamente o banco de dados, mantendo as responsabilidades separadas.
 
 ## Configuração local
 
@@ -45,14 +36,13 @@ Requisitos: Node.js 20 ou superior, npm e acesso à rede do servidor MySQL da es
 ```powershell
 Copy-Item .env.example .env # somente na primeira configuração; não sobrescreva um .env já preenchido
 npm install
-npm run dev
 ```
 
-Edite o arquivo `.env` local e preencha `DB_NAME`, `DB_USER` e `DB_PASSWORD`. `DB_HOST` e `DB_PORT` já apontam para o servidor da escola. Na tela inicial, clique em **Testar conexão MySQL**. O teste valida o acesso ao servidor sem exibir ou salvar a senha na interface.
+Edite o arquivo `.env` local e preencha `DB_NAME`, `DB_USER` e `DB_PASSWORD` com os dados fornecidos pela escola. `DB_HOST` e `DB_PORT` já apontam para o servidor da escola. Não compartilhe o `.env`.
 
-Antes do primeiro uso, execute `database/migrations/001-inicial.sql` no banco configurado, usando o MySQL Workbench ou outro cliente autorizado. Para criar um administrador e clientes demonstrativos, defina `SEED_ADMIN_NAME`, `SEED_ADMIN_EMAIL` e `SEED_ADMIN_PASSWORD` no `.env` (senha com pelo menos 12 caracteres) e execute `npm run db:seed`. O seed pode ser repetido; não redefine a senha de uma conta já existente.
+Antes do primeiro uso, execute `database/migrations/001-inicial.sql` no banco da escola usando um cliente MySQL autorizado, como uma extensão do VS Code com suporte a MySQL ou o MySQL Workbench. A migration não é executada automaticamente pelo aplicativo. Para criar um administrador e clientes demonstrativos, defina `SEED_ADMIN_NAME`, `SEED_ADMIN_EMAIL` e `SEED_ADMIN_PASSWORD` no `.env` (senha com pelo menos 12 caracteres) e execute `npm run db:seed`. O seed pode ser repetido; não redefine a senha de uma conta já existente.
 
-Depois, execute `npm run dev` e entre com o e-mail e a senha definidos no seed. Administradores podem excluir clientes; atendentes podem consultar, cadastrar e editar. A busca de endereço via CEP requer acesso à internet.
+Depois que a migration e o seed terminarem com sucesso, execute `npm run dev` e entre com o e-mail e a senha definidos no seed. Na tela inicial, clique em **Testar conexão MySQL** para confirmar o acesso; o teste não exibe nem salva a senha na interface. Administradores podem excluir clientes; atendentes podem consultar, cadastrar e editar. A busca de endereço via CEP requer acesso à internet.
 
 O `.env` está ignorado pelo Git. Nunca o envie no chat, no repositório ou dentro do instalador. Cada integrante precisa usar suas próprias credenciais, a menos que o professor forneça uma conta específica para o projeto.
 
@@ -63,7 +53,7 @@ O `.env` está ignorado pelo Git. Nunca o envie no chat, no repositório ou dent
 | Henrique | Backend, banco, usuários, clientes e ViaCEP | Persistência MySQL, IPC e segurança para todos os módulos |
 | Julia | Produtos, estoque, dólar e dashboard | Catálogo e regra de disponibilidade ao pedido |
 | Nycollas | Entregadores, checkout, frete e distância | Pedido vinculado a cliente, produtos e entregador |
-| Enzo | Itens, recibo, histórico, e-mail e fluxo Git | Itens vinculados ao pedido e confirmação de venda |
+| Enzo | Itens, recibo, histórico e e-mail | Itens vinculados ao pedido e confirmação de venda |
 
 ## Roadmap paralelo
 
@@ -75,7 +65,6 @@ O `.env` está ignorado pelo Git. Nunca o envie no chat, no repositório ou dent
 - [x] **[Henrique]** Configurar credenciais MySQL locais e validar conexão com o servidor da escola.
 - [ ] **[Julia]** Criar estrutura visual Bootstrap, navegação e layout-base do dashboard.
 - [ ] **[Nycollas]** Criar wireframe e tela estática do caixa/checkout com dados simulados.
-- [x] **[Enzo]** Criar `develop`, modelo de Pull Request, padrão de branches e convenção de commits.
 - [x] **[Enzo]** Criar [modelo visual de recibo e histórico](prototipos/enzo/index.html) usando dados simulados.
 
 ### Fase 2 - Módulo do Henrique: backend, banco e clientes
@@ -118,7 +107,7 @@ O `.env` está ignorado pelo Git. Nunca o envie no chat, no repositório ou dent
 - [x] **[Enzo]** Criar tela de histórico com pedidos simulados.
 - [x] **[Enzo]** Implementar serviço de e-mail com ambiente de teste ou mock, sem credenciais no código.
 - [x] **[Enzo]** Tratar falha de envio de e-mail sem invalidar a venda.
-- [ ] **[Enzo]** Revisar PRs e manter o padrão de branches/commits documentado.
+- [ ] **[Enzo]** Revisar PRs das funcionalidades da equipe.
 
 ### Fase 6 - Integração planejada (somente quando os módulos isolados estiverem prontos)
 
@@ -142,12 +131,109 @@ O `.env` está ignorado pelo Git. Nunca o envie no chat, no repositório ou dent
 
 ## Convenções Git
 
-- **Branches:** criar uma branch `feature/<nome>-<modulo>` por tarefa, sempre baseada em `develop`. Use o nome do integrante e o módulo em minúsculas, separados por hífen (por exemplo, `feature/enzo-recibo-historico`).
-- **Commits:** fazer ao menos um commit próprio por checkbox concluído e usar `tipo(escopo): descrição` em português, com tipos como `feat`, `fix`, `docs`, `style`, `refactor`, `test` e `chore`.
-- **Pull Requests:** abrir PR da branch de tarefa para `develop`; não fazer commit direto em `main` ou `develop`. Use o [modelo de Pull Request](.github/PULL_REQUEST_TEMPLATE.md) e solicite revisão de pelo menos uma pessoa antes do merge.
-- [ ] **[Enzo]** Garantir que cada PR tenha revisão de pelo menos uma pessoa.
+### Branches
 
-Exemplos:
+- Criar uma branch `feature/<nome>-<modulo>` por tarefa, sempre baseada na `develop` atualizada.
+- Usar o nome do integrante e o módulo em minúsculas, separados por hífen.
+- Exemplo: `feature/enzo-recibo-historico`.
+- Não trabalhar diretamente na `main` ou na `develop`.
+- Não criar arquivos README ou documentos de regras automaticamente ao criar branches.
+
+### Commits
+
+- Fazer ao menos um commit próprio por checkbox concluído.
+- Utilizar `tipo(escopo): descrição` em português.
+- Tipos permitidos incluem `feat`, `fix`, `docs`, `style`, `refactor`, `test` e `chore`.
+- Os commits devem ser realizados na branch específica da tarefa, nunca diretamente na `main` ou `develop`.
+
+### Pull Requests
+
+- Abrir PR da branch de tarefa para `develop`.
+- Utilizar o [modelo de Pull Request](.github/PULL_REQUEST_TEMPLATE.md).
+- Solicitar revisão de pelo menos uma pessoa antes do merge.
+- Não realizar merge sem a revisão necessária.
+- Após o merge, sincronizar a `develop` local com o GitHub.
+
+## Sincronização obrigatória com a Develop
+
+A branch `develop` do GitHub (`origin/develop`) é a referência principal de integração do projeto.
+
+Todos os integrantes e agentes devem manter sua cópia local atualizada para evitar trabalhar com código desatualizado ou gerar conflitos desnecessários.
+
+### 1. Ao iniciar o projeto ou uma nova sessão
+
+Sempre que abrir o projeto do zero, iniciar uma nova sessão de desenvolvimento ou começar uma nova tarefa:
+
+1. Verificar a branch atual.
+2. Verificar se existem alterações locais não commitadas.
+3. Atualizar as referências do repositório remoto.
+4. Atualizar a branch `develop` local com a versão do GitHub.
+5. Criar ou atualizar a branch de trabalho a partir da `develop` atualizada.
+
+Comandos de referência:
+
+```bash
+git status
+git fetch origin
+git switch develop
+git pull --ff-only origin develop
+```
+
+Depois, criar a branch da tarefa:
+
+```bash
+git switch -c feature/nome-modulo
+```
+
+Se a branch já existir:
+
+```bash
+git switch feature/nome-modulo
+```
+
+Antes de continuar, verificar se ela precisa incorporar as atualizações mais recentes da `develop`.
+
+### 2. Depois de concluir uma tarefa
+
+O fluxo obrigatório é:
+
+1. Validar a implementação.
+2. Executar os testes necessários.
+3. Criar o commit na branch da tarefa.
+4. Enviar a branch ao GitHub.
+5. Abrir um Pull Request direcionado à `develop`.
+6. Aguardar revisão e integração.
+7. Atualizar a `develop` local após o merge.
+
+Comandos após a integração:
+
+```bash
+git switch develop
+git pull --ff-only origin develop
+```
+
+### 3. Proteção contra perda de alterações
+
+- Nunca executar `git reset --hard` para forçar sincronização.
+- Nunca executar `git clean -fd` sem autorização explícita.
+- Nunca descartar alterações locais sem verificar seu conteúdo.
+- Se houver alterações não commitadas, preservá-las antes de trocar de branch ou sincronizar.
+- Se houver commits locais ainda não enviados, não sobrescrevê-los.
+- Se houver conflitos, interromper a sincronização e resolver os conflitos preservando o trabalho existente.
+- Nunca presumir que um commit local já está disponível no GitHub.
+- Se não houver conexão com o repositório remoto, informar que a sincronização não foi realizada.
+
+### 4. Regras obrigatórias
+
+- A `develop` do GitHub é a referência de integração.
+- Toda tarefa deve começar a partir da versão atualizada da `develop`.
+- Todo trabalho deve ser integrado à `develop` por Pull Request.
+- Não fazer commits diretamente na `develop`.
+- Após cada integração, atualizar a cópia local antes de começar outra tarefa.
+- Não criar READMEs, documentos de regras ou arquivos de instruções automaticamente durante a criação de branches.
+- A sincronização nunca deve apagar ou sobrescrever trabalho de outro integrante.
+
+## Exemplos de commits
 
 ```text
 feat(enzo-recibo): cria modelo visual de recibo
